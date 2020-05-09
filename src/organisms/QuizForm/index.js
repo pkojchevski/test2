@@ -2,62 +2,107 @@ import React, { useState } from 'react'
 import Input from '../../atoms/Input';
 import ButtonSimple from '../../atoms/ButtonSimple';
 
-import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
+import { connect } from "react-redux";
+
+function AddQuestionsForm({ questions }) {
+    const [value, setValue] = useState()
+    const [result, setResult] = useState(0)
+    const [show, setShow] = useState(false)
 
 
-function AddQuestionsForm() {
-    const [employeeName, setEmployeeName] = useState()
-    const [email, setEmail] = useState()
-    const [githubuser, setGithubuser] = useState()
-
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        setShow(true)
     }
 
-    const handleChange = (e) => {
 
+    const handleChangeRadio = (e, index) => {
+        const answer = e.target.value;
+        if (questions[index].correct === answer) {
+            setResult(prevState => prevState + 1)
+        }
     }
+
 
     return (
-        <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-        >
-            <form>
+        <>
+            {questions.length > 0 ?
+                (
+                    <>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <form>
+                                {
+                                    questions && questions.map((question, index) => (
+                                        <Grid key={index} style={{ marginTop: '30px' }}>
+                                            <Grid style={{ marginTop: '30px' }}>
+                                                <Input name="question.question"
 
-                <Input name="name"
-                    label="Name"
-                    type="text"
-                    value={employeeName}
-                    onChange={handleChange}
-                    required
-                />
+                                                    type="text"
+                                                    value={question.question}
 
-                <Input name="email"
-                    label="Email"
-                    type="text"
-                    value={email}
-                    onChange={handleChange}
-                    required
-                />
+                                                    required
+                                                />
+                                            </Grid>
 
-                <Input name="githubuser"
-                    label="Githhub user"
-                    type="text"
-                    value={githubuser}
-                    onChange={handleChange}
-                    required
-                />
+                                            <Grid style={{ marginTop: '30px' }}>
+                                                {question.answers.length > 0 && <FormControl component="fieldset">
+                                                    <FormLabel component="legend">Answers</FormLabel>
+                                                    <RadioGroup name="answer" onChange={(e) => handleChangeRadio(e, index)}>
+                                                        {
+                                                            question.answers.map((answer, id) => (
+                                                                <FormControlLabel key={id}
+                                                                    value={answer.aid} control={<Radio />} label={answer.a} />
+                                                            ))
+                                                        }
+                                                    </RadioGroup>
+                                                </FormControl>}
+                                            </Grid>
 
 
-                <ButtonSimple type="submit" onClick={handleSubmit()}>
-                    Add Employee
+                                        </Grid>
+                                    ))
+                                }
+
+                                <Grid style={{ marginTop: '50px' }}>
+                                    <ButtonSimple type="submit" onClick={handleSubmit} variant="contained" color="primary">
+                                        Submit
             </ButtonSimple>
-            </form>
-        </Grid >
+                                </Grid>
+                            </form>
+                        </Grid >
+
+                        <Grid>
+                            {show && <h4>Result: {result} </h4>}
+                        </Grid>
+                    </>)
+
+
+                :
+                (<h2>No questions available</h2>)
+            }
+
+
+        </>
     )
 }
 
-export default AddQuestionsForm
+
+const mapStateToProps = state => ({
+    questions: state.quiz
+});
+
+
+export default connect(
+    mapStateToProps)(AddQuestionsForm)

@@ -11,21 +11,26 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
+
 function AddQuestionsForm(props) {
-    const [question, setQuestion] = useState()
+    const [question, setQuestion] = useState('')
     const [answers, setAnswers] = useState([])
     const [counter, setCounter] = useState(0);
     const [correct, setCorrect] = useState()
 
 
+
+
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const quest = {
-            question, ...answers, correct: correct
+            question, answers: answers, correct: correct
         }
         props.addQuestion(quest)
         setAnswers([]);
-        setQuestion()
+        setQuestion('')
     }
 
     const handleAddOption = (e) => {
@@ -69,14 +74,7 @@ function AddQuestionsForm(props) {
                         required
                     />
                 </Grid>
-                <br />
-                <br />
-                <Grid>
-                    <ButtonSimple variant="contained" color="primary" onClick={handleAddOption}
-                        disabled={!question}>
-                        Add Option
-            </ButtonSimple>
-                </Grid>
+
                 <br /><br />
                 <Grid>
                     {answers.length > 0 && <FormControl component="fieldset">
@@ -91,6 +89,14 @@ function AddQuestionsForm(props) {
                             }
                         </RadioGroup>
                     </FormControl>}
+                </Grid>
+                <br />
+                <br />
+                <Grid>
+                    <ButtonSimple variant="contained" color="primary" onClick={handleAddOption}
+                        disabled={question === ''}>
+                        Add Option
+            </ButtonSimple>
                 </Grid>
                 <br />
                 <br />

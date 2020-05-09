@@ -13,7 +13,7 @@ const Routes = (props) => {
                     exact={true}
                 />
                 <Route
-                    path="/addteam"
+                    path="/quiz"
                     component={(props) => <QuizPage />}
                     exact={true}
                 />

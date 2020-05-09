@@ -1,28 +1,19 @@
 import React, { useState } from 'react'
 
 import { connect } from "react-redux";
-import * as actions from '../../store/actions/actions'
 
-
-import Input from '../../atoms/Input';
 import ButtonSimple from '../../atoms/ButtonSimple';
 
-import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import AddQuestionsForm from '../../organisms/AddQuestionsForm';
-
+import { useHistory } from "react-router-dom";
 
 
 function AddQuestionsPage() {
-    const [employeeName, setEmployeeName] = useState()
-    const [email, setEmail] = useState()
-    const [githubuser, setGithubuser] = useState()
-
-    const handleSubmit = () => {
-    }
-
-    const handleChange = (e) => {
-
+    const history = useHistory();
+    const goToQuiz = () => {
+        let path = `quiz`;
+        history.push(path);
     }
 
     return (
@@ -32,13 +23,21 @@ function AddQuestionsPage() {
             justify="center"
             alignItems="center"
         >
+
             <AddQuestionsForm />
+
+
+            <Grid style={{ marginTop: '60px' }}>
+                <ButtonSimple variant="contained" color="primary" onClick={goToQuiz}>
+                    Take Quiz
+            </ButtonSimple>
+            </Grid>
         </Grid >
     )
 }
 
 const mapStateToProps = state => ({
-    questions: state.question.questions,
+    questions: state.quiz,
 });
 
 const mapDispatchToProps = dispatch => ({

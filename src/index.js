@@ -8,15 +8,15 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import questionReducer from './store/reducers/reducer'
+import questionReducer from './store/reducers/questionReducer'
 
-const rootReducer = combineReducers({
-  question: questionReducer
-  // order: ordersReducer,
-  // auth: authReducer
-});
+// const rootReducer = combineReducers({
+//   quest: questionReducer
+//   // order: ordersReducer,
+//   // auth: authReducer
+// });
 
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const store = createStore(questionReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
   <Provider store={store}>
