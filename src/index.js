@@ -8,9 +8,10 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import questionReducer from './store/reducers/reducer'
 
 const rootReducer = combineReducers({
-  // burgerBuilder: burgerBuilderReducer,
+  question: questionReducer
   // order: ordersReducer,
   // auth: authReducer
 });

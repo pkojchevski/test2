@@ -1,24 +1,24 @@
+import * as actionTypes from "../actionTypes";
+import { addQuestionUtil, addAnswerUtil } from '../utils'
+
+// quiz = [
+//     { qid: 1, q="", a1="", a2="", a3="" }, correct: 'a2'},
+// ]
 const initialState = {
-    token: null,
-    userId: null,
-    error: null,
-    loading: false,
-    authRedirectPath: "/",
-    orderAfterLogin: false
+    quiz: [],
+
 };
 
-const reducer = (state = initialState, action) => {
-
+const questionReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.AUTH_START:
+        case actionTypes.ADD_QUESTIONS:
             return {
-
+                ...state,
+                quiz: addQuestionUtil(state.quiz, action.question)
             };
-        case actionTypes.AUTH_SUCCESS:
-
         default:
             return state;
     }
 };
 
-export default reducer;
+export default questionReducer;

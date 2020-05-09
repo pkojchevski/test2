@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom';
-import AddEmployeePage from '../pages/AddEmployeePage';
-import AddTeamPage from '../pages/AddTeamPage'
+import AddQuestionsPage from '../pages/AddQuestionsPage';
+import QuizPage from '../pages/QuizPage'
 
 const Routes = (props) => {
     return (
@@ -9,12 +9,12 @@ const Routes = (props) => {
             <Switch>
                 <Route
                     path="/"
-                    component={(props) => <AddEmployeePage />}
+                    component={(props) => <AddQuestionsPage />}
                     exact={true}
                 />
                 <Route
                     path="/addteam"
-                    component={(props) => <AddTeamPage />}
+                    component={(props) => <QuizPage />}
                     exact={true}
                 />
             </Switch>
